@@ -1,0 +1,77 @@
+﻿@page
+@model EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Ciudad</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Ciudad.Id" />
+            <div class="form-group">
+                <label asp-for="Ciudad.Nombre" class="control-label"></label>
+                <input asp-for="Ciudad.Nombre" class="form-control" />
+                <span asp-validation-for="Ciudad.Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ciudad.Codigo" class="control-label"></label>
+                <input asp-for="Ciudad.Codigo" class="form-control" />
+                <span asp-validation-for="Ciudad.Codigo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ciudad.Departamento.Pais" class="control-label"></label>
+                <select id="SelPais" asp-for="Ciudad.Departamento.PaisId" class="form-control" asp-items="ViewBag.Pais_Id"></select>
+                <span asp-validation-for="Ciudad.Departamento.PaisId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ciudad.Departamento" class="control-label"></label>
+                <select id="SelDepto" asp-for="Ciudad.DepartamentoId" class="form-control" asp-items="ViewBag.Departamento_Id"></select>
+                <span asp-validation-for="Ciudad.DepartamentoId" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Ciudad.Active" /> @Html.DisplayNameFor(model => model.Ciudad.Active)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+   
+    <script type="text/javascript">
+    $("#SelPais").change(function () {
+        var paisId = $("#SelPais").val();
+        $.ajax({
+            type: 'GET',
+            url: '/CiudadPage/Edit?handler=ObtenerDepartamentos',
+            data: {
+                IdentificadorPais: paisId
+            },
+            success: function (data) {
+                var item = "";
+                $("#SelDepto").empty();
+                $.each(data, function (i, departamento) {
+                    item += '<option value="' + departamento.value + '">' + departamento.text + '</option>'
+                });
+                $("#SelDepto").html(item);
+            }
+        })
+    });
+        </script>
+
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

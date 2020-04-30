@@ -1,0 +1,54 @@
+﻿@page
+@model IndexPageModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<h1>Index</h1>
+<table style="height:108px;" width="473">
+    <tbody>
+        <tr>
+            @if (Model.V_pais)
+            {
+                <td style="width: 228px; text-align:center;">
+                    <img src="~/images/PaisIcon.png" alt="" width="151" height="151" />
+                </td>
+            }
+            @if (Model.V_depto)
+            {
+                <td style="width: 229px; text-align:center;">
+                    <img src="~/images/DeptoIcon.png" alt="" width="151" height="151" />
+                </td>
+            }
+            @if (Model.V_ciudad)
+            {
+                <td style="width: 229px; text-align:center;">
+                    <img src="~/images/CiudadIcon.png" alt="" width="151" height="151" />
+                </td>
+            }
+
+        </tr>
+        <tr>
+            @if (Model.V_pais)
+            {
+                <td style="width: 228px; text-align:center;">
+                    <a asp-page="./PaisPage/Index">CRUD PAIS</a>
+                </td>
+            }
+            @if (Model.V_depto)
+            {
+                <td style="width: 229px; text-align:center;">
+                    <a asp-page="./DepartamentoPage/Index">CRUD DEPARTAMENTO</a>
+                </td>
+            }
+            @if (Model.V_ciudad)
+            {
+                <td style="width: 228px; text-align:center;">
+                    <a asp-page="./CiudadPage/Index">CRUD CIUDAD</a>
+                </td>
+            }
+
+        </tr>
+    </tbody>
+
+</table>

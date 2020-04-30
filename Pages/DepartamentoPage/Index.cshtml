@@ -1,0 +1,105 @@
+﻿@page
+@model Prj_GestionPDC_OASG.Pages.DepartamentoPage.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Buscar Valor:
+            <input type="text" name="searchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="search" class="btn-primary" />
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort" asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Departamento[0].Nombre)
+                </a>
+
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.CodeSort" asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Departamento[0].Codigo)
+                </a>
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Departamento[0].Active)
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.PaisSort" asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Departamento[0].Pais)
+                </a>
+
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Departamento)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Active)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pais.Nombre)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+        <tr>
+            <td>
+                <a asp-page="Index">Index</a>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td style="text-align: center;" colspan="6">Pagina <b>@Model.Departamento.IndicePagina</b> de <b>@Model.Departamento.TotalPaginas</b></td>
+        </tr>
+    </tfoot>
+</table>
+@{
+    var prevDisabled = !Model.Departamento.TienePaginaAnterior ? "disabled" : "";
+    var nextDisabled = !Model.Departamento.TienePaginaSiguiente ? "disabled" : "";
+}
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Departamento.IndicePagina - 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @prevDisabled">
+    Previous
+
+</a>
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Departamento.IndicePagina + 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @nextDisabled">
+    Next
+
+</a>

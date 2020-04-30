@@ -1,0 +1,39 @@
+﻿@page
+@model Prj_GestionPDC_OASG.Pages.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>Login</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <section>
+            <form method="post" role="form" class="form-horizontal">
+                <div class="form-group">
+                    <label asp-for="Lg_login.Username" class="col-md-2 form-control-label"></label>
+                    <div class="col-md-10">
+                        <input class="form-control" asp-for="Lg_login.Username"/>
+                        <span class="alert-danger"  asp-validation-for="Lg_login.Username"></span>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Lg_login.Password" class="col-md-2 form-control-label"></label>
+                    <div class="col-md-10">
+                        <input type="password" class="form-control" asp-for="Lg_login.Password"/>
+                        <span class="alert-danger" asp-validation-for="Lg_login.Password"></span>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button asp-page-handler="LogIn" class="btn btn-primary">Log in</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+    </div>
+
+</div>
